@@ -7,7 +7,7 @@ import model.Shop;
 /**
  * 
  * @author angievig
- *
+ * 
  */
 public class MainShop {
 	private Shop shop;
