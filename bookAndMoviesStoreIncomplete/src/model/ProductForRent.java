@@ -102,9 +102,8 @@ public class ProductForRent extends Product implements Rentable{
 		}
 		
 		devolutionDate = LocalDate.of(year, month, day);
-		
-		return "El producto ha sido alquilado exitosamente\nSu fecha de devolucion limite es " + devolutionDate;
 	} 
+	
 	
 	@Override 
 	public double getRentPrice(int amountDays){

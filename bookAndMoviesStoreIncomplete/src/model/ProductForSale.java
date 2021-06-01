@@ -45,13 +45,13 @@ public class ProductForSale extends Product implements Saleable{
 			   "Code: " + getCode() + "\n"+
 			   "Product name: " + getName() + "\n" +
 			   "Units: " + getUnits() + "\n" + 
-			   "Price: " + getPrice() + "\n" + 
-			   "Product Type: " + getType() + "\n"+;
+			   "Price: " + price + "\n" + 
+			   "Product Type: " + getType() + "\n";
 
 	}
 
 
-	@Override
+	//@Override
 	public void setDiscount(double discount){
 
 		this.discount = discount;
@@ -63,9 +63,10 @@ public class ProductForSale extends Product implements Saleable{
 	public boolean isSafeSale(int units){
 
 		boolean available = false;
+		int isSafe = getUnits() - units;
 
 
-		if (units >= 0){
+		if (isSafe >= 0){
 
 			available = true;
 		}

@@ -87,8 +87,8 @@ public class Shop {
 		}
 
 		if (!sentinel){
-			ProductForSale objSale = new ProductForSale(code,name,units,price,type);
-			catalog.add(objSale);
+			ProductForSale productForSale = new ProductForSale(code,name,units,price,type);
+			catalog.add(productForSale);
 			text = "The product was entered correctly " + name;
 		}
 
@@ -126,8 +126,8 @@ public class Shop {
 		}
 
 		if (!sentinel){
-			ProductForSale objSale = new ProductForSale(code,name,price,type);
-			catalog.add(objSale);
+			ProductForRent productForRent = new ProductForRent(code,name,price,type);
+			catalog.add(productForRent);
 			text = "The product was entered correctly " + name;
 		}
 
@@ -145,17 +145,16 @@ public class Shop {
 
 		for (int i=0; i< catalog.size(); i++){
 
-			text += catalog.get(i).getInformation();
-			text += "\n";
+			text += catalog.get(i).getInformation() +"\n";
 		}
 
 		return text;
 	}
 
 
+	//FALTA TODAVIDA TODAVIA TODO ESTO
 
 
-	
 	
 	/**
 	 * Método que busca un producto en el catalogo por código
@@ -167,9 +166,17 @@ public class Shop {
 	 * no contiene un producto con ese código
 	 */
 	public Product findProduct(String code) {
-		Product p=null;
+
+		Product product = null;
 		
-		return p;
+		for(int i = 0; i < catalog.size(); i++ ){
+
+			if(catalog.get(i).getCode().equalsIgnoreCase(code)){
+				product = catalog.get(i);
+			}
+		}
+
+		return product;
 	}
 	
 	
@@ -187,6 +194,7 @@ public class Shop {
 	 * RENT si es para alquilar
 	 */
 	public int getOperation(String code) {
+
 		int operation= -1;
 		Product p = findProduct(code);
 
@@ -198,6 +206,9 @@ public class Shop {
 		return operation;
 		
 	}
+
+
+
 	/**
 	 * Método que recibe los datos para hacer una venta y llama al 
 	 * método que se encarga de hacer el proceso de ventas asegurándose
@@ -208,6 +219,7 @@ public class Shop {
 	 * @return mensaje de respuesta de la venta
 	 */
 	public String saleProduct(String cod, int units, double discount) {
+
 		String answer="";
 		
 		Product p = findProduct(cod);
@@ -224,6 +236,7 @@ public class Shop {
 	 * @return mensaje de respuesta del alquiler
 	 */
 	public String rentProduct(String cod, int days) {
+
 		String answer="";
 		
 		Product p = findProduct(cod);
@@ -261,9 +274,32 @@ public class Shop {
 		 * si no: 
 		 *  - Se muestra un mensaje reportando el error.
 		 */
-		return "";
+
+		String text = "";
+		double salePrice = 0;
+
+		if(p.isSafeSale(units) == true){
+			
+			salePrice = p.getSalePrice(units);
+			salePrice = p.applyExtraDiscount(salePrice,discount);
+			salePrice = p.calculateTax(salePrice,TAX_IVA);
+			
+			
+			
+			totalSales+=salePrice;
+			text= "The product was sold at a price of: " + salePrice + "\n";
+
+		}else {
+			text = "The product is not available in this moment\n";
+		}
+
+
+		return text;
 		
 	}
+
+
+
 	
 	/**
 	 *  Metodo que realiza el proceso de alquiler usando los métodos de la 
@@ -276,7 +312,7 @@ public class Shop {
 	 * @param days cantidad de días que se alquila un producto
 	 * @return un mensaje con el resultado del alquiler
 	 */
-	private  String rent(Rentable p, int days) {
+	private String rent(Rentable p, int days) {
 		/*
 		 * Para hacer una venta
 		 * 1. Se verifica si es eguro alquilar, es decir si el producto 
@@ -289,7 +325,22 @@ public class Shop {
 		 * si no: 
 		 *  - Se muestra un mensaje reportando el error.
 		 */
-		return"";
+		String text = "";
+		double price = 0;
+
+		if(p.isSafeRent()){
+
+			price= p.getRentPrice(days);
+			p.rentProduct(days);
+			totalRents+=price;
+
+			text = "The product was rented at a price of: " + price + "\n";
+
+
+
+		}else text = "The product is not available in this moment\n";
+
+		return text;
 	}
 	
 
