@@ -1,8 +1,9 @@
 package ui;
-//Juan Felipe Castillo
+
 import java.util.Scanner;
 
 import model.Shop;
+import model.ProductType;
 
 /**
  * 
@@ -131,6 +132,68 @@ public class MainShop {
 	}
 	
 	public void addProductCatalog() {
+
+		System.out.println("======================\nFormat for new product\n======================");
+		System.out.println("Please choose if the producer is for Sale or Rent \n(1) Sale \n(2) Rent");
+		int option = sc.nextInt();
+		sc.nextLine();
+
+		if (option==1){
+
+			System.out.println("Enter the Code of the product please: ");
+			String code= sc.nextLine();
+			System.out.println("Enter the Name of the product please: ");
+			String name= sc.nextLine();
+			System.out.println("Enter the Units of the product please: ");
+			int units= sc.nextInt();
+			System.out.println("Enter the Price of the product please: ");
+			double price= sc.nextDouble();
+			System.out.println("Please select the type of the product: \n(1) BOOK \n(2) MAGAZINE \n(3) DVD_MOVIE \n(4) DOWNLOAD_MOVIE ");
+			int type = sc.nextInt();
+
+			if (type==1){
+				System.out.println(shop.addProduct(code,name,units,price,ProductType.BOOK));
+
+			}else if(type==2){
+				System.out.println(shop.addProduct(code,name,units,price,ProductType.MAGAZINE));
+
+			}else if (type==3){
+				System.out.println(shop.addProduct(code,name,units,price,ProductType.DVD_MOVIE));
+
+			}else if (type==4){
+				System.out.println(shop.addProduct(code,name,units,price,ProductType.DOWNLOAD_MOVIE));
+
+			}else 
+			System.out.println("Try again\n");
+
+
+		}else if (option==2){
+			System.out.println("Enter the Code of the product please: ");
+			String code= sc.nextLine();
+			System.out.println("Enter the Name of the product please: ");
+			String name= sc.nextLine();
+			System.out.println("Enter the Price of the product please: ");
+			double price= sc.nextDouble();
+			System.out.println("Please select the type of the product: \n(1) BOOK \n(2) MAGAZINE \n(3) DVD_MOVIE \n(4) DOWNLOAD_MOVIE ");
+			int type = sc.nextInt();
+
+			if (type==1){
+				System.out.println(shop.addProduct(code,name,price,ProductType.BOOK));
+
+			}else if(type==2){
+				System.out.println(shop.addProduct(code,name,price,ProductType.MAGAZINE));
+
+			}else if (type==3){
+				System.out.println(shop.addProduct(code,name,price,ProductType.DVD_MOVIE));
+
+			}else if (type==4){
+				System.out.println(shop.addProduct(code,name,price,ProductType.DOWNLOAD_MOVIE));
+
+			}else 
+			System.out.println("Try again\n");
+
+		} else 
+		System.out.println("Try again\n");
 		
 	}
 	

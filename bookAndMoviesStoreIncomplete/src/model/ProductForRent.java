@@ -11,69 +11,70 @@ public class ProductForRent extends Product implements Rentable{
 	
 	//Constructor
 	public ProductForRent(String code, String name, double price, ProductType type){
-		super(code, name, price, type);
-		devolutionDate = LocalDate.of(2021, 05, 28);
+		super(code, name, 1, price, type);
+		devolutionDate = LocalDate.of(2021, 5, 28);
 		state = State.AVAILABLE;
 	}
 	
-	@0verride from Rentable
-	public String rentProduct(int amountDays){
-		int aux, day = 28, month = 05, year = 2021;
+	//Methods
+	@Override 
+	public void rentProduct(int amountDays){
+		int aux, day = 28, month = 5, year = 2021;
 		
 		state = State.RENTED;
 		aux = day + amountDays;
 	
 		for(int i = 0; i <= 12; i++){
-			if(month == 01){
+			if(month == 1){
 				if(aux > 31){
 					day = aux - 31;
 					month++;
 					aux = day;
 					year++;
 				}
-			} else if(month == 02){
+			} else if(month == 2){
 				if(aux > 28){
 					day = aux - 28;
 					month++;
 					aux = day;
 				}
-			} else if(month == 03){
+			} else if(month == 3){
 				if(aux > 31){
 					day = aux - 31;
 					month++;
 					aux = day;
 				}
-			} else if(month == 04){
+			} else if(month == 4){
 				if(aux > 30){
 					day = aux - 30;
 					month++;
 					aux = day;
 				}
-			} else if(month == 05){
+			} else if(month == 5){
 				if(aux > 31){
 					day = aux - 31;
 					month++;
 					aux = day;
 				}
-			} else if(month == 06){
+			} else if(month == 6){
 				if(aux > 30){
 					day = aux - 30;
 					month++;
 					aux = day;
 				}
-			} else if(month == 07){
+			} else if(month == 7){
 				if(aux > 31){
 					day = aux - 31;
 					month++;
 					aux = day;
 				}
-			} else if(month == 08){
+			} else if(month == 8){
 				if(aux > 31){
 					day = aux - 31;
 					month++;
 					aux = day;
 				}
-			} else if(month == 09){
+			} else if(month == 9){
 				if(aux > 30){
 					day = aux - 30;
 					month++;
@@ -105,12 +106,12 @@ public class ProductForRent extends Product implements Rentable{
 		return "El producto ha sido alquilado exitosamente\nSu fecha de devolucion limite es " + devolutionDate;
 	} 
 	
-	@0verride from Rentable
-	public boolean getRentPrice(int amountDays){
+	@Override 
+	public double getRentPrice(int amountDays){
 		return amountDays * price; 
 	}
 	
-	@0verride from Product
+	@Override 
 	public String getInformation(){
 		return "===================\n"+
 			   "=== Information ===\n"+
@@ -119,10 +120,10 @@ public class ProductForRent extends Product implements Rentable{
 			   "Code: " + getCode() + "\n"+
 			   "Product name: " + getName() + "\n"+
 			   "State: " + state + "\n"+
-			   "Return deadline: " + devolutionDate + "\n"+
+			   "Return deadline: " + devolutionDate + "\n";
 	}
 	
-	@0verride from Rentable
+	@Override 
 	public boolean isSafeRent(){
 		if(state == State.AVAILABLE){
 			return true;

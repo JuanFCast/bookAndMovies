@@ -71,7 +71,28 @@ public class Shop {
 	 * informando que el producto ya existe. 
 	 */
 	public String addProduct(String code,String name, int units, double price, ProductType type) {
-		return "";
+
+		String text = "";
+		boolean sentinel = false;
+		
+
+		for (int i=0; i < catalog.size() && !sentinel; i++){
+
+			if(catalog.get(i).getCode().equalsIgnoreCase(code)){
+
+				text = "This product already exists";
+				sentinel = true;
+			}
+
+		}
+
+		if (!sentinel){
+			ProductForSale objSale = new ProductForSale(code,name,units,price,type);
+			catalog.add(objSale);
+			text = "The product was entered correctly " + name;
+		}
+
+		return text;
 	}
 	
 
@@ -89,7 +110,28 @@ public class Shop {
 	 * informando que el producto ya existe. 
 	 */
 	public String addProduct(String code, String name, double price, ProductType type) {
-		return "";
+
+		String text = "";
+		boolean sentinel = false;
+		
+
+		for (int i=0; i < catalog.size() && !sentinel; i++){
+
+			if(catalog.get(i).getCode().equalsIgnoreCase(code)){
+
+				text = "This product already exists";
+				sentinel = true;
+			}
+
+		}
+
+		if (!sentinel){
+			ProductForSale objSale = new ProductForSale(code,name,price,type);
+			catalog.add(objSale);
+			text = "The product was entered correctly " + name;
+		}
+
+		return text;
 	}
 	
 	/**
@@ -98,8 +140,22 @@ public class Shop {
 	 * @return cadena con la informacion de los productos
 	 */
 	public String showCatalog() {
-		return "";
+
+		String text = "";
+
+		for (int i=0; i< catalog.size(); i++){
+
+			text += catalog.get(i).getInformation();
+			text += "\n";
+		}
+
+		return text;
 	}
+
+
+
+
+	
 	
 	/**
 	 * Método que busca un producto en el catalogo por código
